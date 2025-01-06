@@ -3,9 +3,11 @@
 namespace App\Actions\Fortify;
 
 use App\Models\User;
+use App\Models\Profile;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
+use App\Actions\Fortify\Request;
 use Laravel\Fortify\Contracts\UpdatesUserProfileInformation;
 
 class UpdateUserProfileInformation implements UpdatesUserProfileInformation
@@ -20,22 +22,35 @@ class UpdateUserProfileInformation implements UpdatesUserProfileInformation
         Validator::make($input, [
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'email', 'max:255', Rule::unique('users')->ignore($user->id)],
-            'photo' => ['nullable', 'mimes:jpg,jpeg,png', 'max:1024'],
-        ])->validateWithBag('updateProfileInformation');
+            'DOB' => ['required', 'date'],
+            'nationality' => ['required', 'string'],
+            'race' => ['required', 'string'],
+            'gender' => ['required', 'string'],
+            'address' => ['required', 'string'],
+            'phone' => ['required', 'string'],
+        ])->validate();
 
-        if (isset($input['photo'])) {
-            $user->updateProfilePhoto($input['photo']);
-        }
+        // Update user data
+        $user->update([
+            'name' => $input['name'],
+            'email' => $input['email'],
+        ]);
 
-        if ($input['email'] !== $user->email &&
-            $user instanceof MustVerifyEmail) {
-            $this->updateVerifiedUser($user, $input);
-        } else {
-            $user->forceFill([
-                'name' => $input['name'],
-                'email' => $input['email'],
-            ])->save();
-        }
+        // Update profile data
+        Profile::updateOrCreate(
+            ['userID' => $user->id],
+            [
+                'DOB' => $input['DOB'],
+                'nationality' => $input['nationality'],
+                'race' => $input['race'],
+                'gender' => $input['gender'],
+                'address' => $input['address'],
+                'phone' => $input['phone'],
+            ]
+        );
+
+        // Optionally, add redirection logic in Jetstream
+        session()->flash('status', 'Profile updated successfully!');
     }
 
     /**

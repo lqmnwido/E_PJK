@@ -11,15 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('jenazah', function (Blueprint $table) {
+        Schema::create('payment', function (Blueprint $table) {
             $table->id();
-            $table->string('jenazahID');
+            $table->string('paymentID');
             $table->string('userID');
-            $table->string('locationID');
-            $table->date('deathDate');
-            $table->string('permit');
-            $table->string('graveLot');
+            $table->string('services');
+            $table->double('amount');
+            $table->string('typeOfPayment');
             $table->string('status');
+            $table->string('receipt')->nullable();
             $table->timestamps();
         });
     }
@@ -29,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('jenazah');
+        Schema::dropIfExists('payment');
     }
 };

@@ -1,3 +1,4 @@
+
 <nav x-data="{ open: false }" class="bg-white border-b border-gray-100">
     @if (!auth()->check())
         <script>
@@ -17,26 +18,26 @@
                     <!-- Navigation Links -->
                     <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                         @if (auth()->check() && auth()->user()->role === 'Admin')
-                            <x-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('user_list')">
+                            <x-nav-link href="{{ route('dashboard') }}" class="no-underline" :active="request()->routeIs('user_list')">
                                 {{ __('Manage User') }}
                             </x-nav-link>
-                            <x-nav-link href="#" :active="request()->routeIs('dashboard')">
+                            <x-nav-link href="#" class="no-underline" :active="request()->routeIs('dashboard')">
                                 {{ __('Manage Jenazah') }}
                             </x-nav-link>
-                            <x-nav-link href="#" :active="request()->routeIs('dashboard')">
+                            <x-nav-link href="{{ route('kKematian') }}" class="no-underline" :active="request()->routeIs('kKematian')">
                                 {{ __('Manage Khairat Kematian') }}
                             </x-nav-link>
-                            <x-nav-link href="#" :active="request()->routeIs('dashboard')">
+                            <x-nav-link href="{{ route('payment') }}" class="no-underline" :active="request()->routeIs('payment')">
                                 {{ __('Manage Payment') }}
                             </x-nav-link>
                         @elseif (auth()->check() && auth()->user()->role === 'Citizen')
-                            <x-nav-link href="#" :active="request()->routeIs('dashboard')">
+                            <x-nav-link href="{{ route('jenazah') }}" class="no-underline" :active="request()->routeIs('jenazah')">
                                 {{ __('Manage Jenazah') }}
                             </x-nav-link>
-                            <x-nav-link href="#" :active="request()->routeIs('dashboard')">
+                            <x-nav-link href="{{ route('dashboard') }}" class="no-underline" :active="request()->routeIs('dashboard')">
                                 {{ __('Manage Khairat Kematian') }}
                             </x-nav-link>
-                            <x-nav-link href="#" :active="request()->routeIs('dashboard')">
+                            <x-nav-link href="{{ route('history') }}" class="no-underline" :active="request()->routeIs('history')">
                                 {{ __('Payment History') }}
                             </x-nav-link>
                         @else

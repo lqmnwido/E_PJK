@@ -11,15 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('jenazah', function (Blueprint $table) {
+        Schema::create('location', function (Blueprint $table) {
             $table->id();
-            $table->string('jenazahID');
-            $table->string('userID');
             $table->string('locationID');
-            $table->date('deathDate');
-            $table->string('permit');
-            $table->string('graveLot');
-            $table->string('status');
+            $table->string('country');
+            $table->string('state');
+            $table->string('city');
+            $table->string('address');
+            $table->string('poscode');
             $table->timestamps();
         });
     }
@@ -29,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('jenazah');
+        Schema::dropIfExists('location');
     }
 };

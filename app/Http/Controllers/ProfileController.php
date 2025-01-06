@@ -101,6 +101,27 @@ class ProfileController extends Controller
         return redirect()->route('users.index')->with('success', 'User Updated!');
     }
 
+    public function save(Request $request, string $users)
+    {
+        // Create User
+        User::where('userID', $users)->update([
+            'name' => $request['name'],
+            'email' => $request['email'],
+        ]);
+
+        // Create Profile
+        Profile::where('userID', $users)->update([
+            'DOB' => $request['DOB'],
+            'nationality' => $request['nationality'],
+            'race' => $request['race'],
+            'gender' => $request['gender'],
+            'address' => $request['address'],
+            'phone' => $request['phone']
+        ]);
+
+        return redirect()->route('users.index');
+    }
+
     public function destroy(string $userID)
     {
         $profile = Profile::where('userID', $userID)->first();
@@ -110,4 +131,5 @@ class ProfileController extends Controller
 
         return redirect()->route('users.index')->with('success', 'User Deleted!');
     }
+    
 }

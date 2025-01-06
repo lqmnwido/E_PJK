@@ -1,87 +1,52 @@
+<title>EPJK</title>
 <x-app-layout>
     <br />
     <div class="container text-center">
         <h1 class="text-4xl">MANAGE KHAIRAT KEMATIAN</h1>
         <br />
-
-        <div id='section2' class="p-8 mt-6 lg:mt-0 rounded shadow bg-white">
-
-            <form method="POST" action="#"
-                enctype="multipart/form-data">
+        {{-- {{dd($kKematian)}} --}}
+        <div class="container mx-auto px-4 bg-gray-200 rounded-3xl py-5 shadow-lg">
+            <form method="POST" action="{{ route('store_payment') }}" enctype="multipart/form-data">
                 @csrf
-                <div class="md:flex mb-6">
-                    <div class="md:w-1/3">
-                        <label class="block text-gray-600 font-bold md:text-left mb-3 md:mb-0 pr-4" for="feeType">
-                            Fee Type :
-                        </label>
-                    </div>
-                    <div class="md:w-2/3">
-                        <input
-                            class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"
-                            id="feeType" type="text" value="#" disabled>
-                        <input type="hidden" value="#" name="feeType">
-                        <input type="hidden" value="#" name="uID">
-                    </div>
+                <h3 class="text-lg font-bold mb-4 text-left">DETAIL KEAHLIAN</h3>
+
+                <!--Hidden Input-->
+                <input type="hidden" value="{{ $user->userID }}" name="uid">
+                <input type="hidden" value="{{ $profile->phone }}" name="phone">
+                <input type="hidden" value="{{ $user->email }}" name="email">
+                @if ($kKematian === null):
+                    <input type="hidden" value="Khairat Kematian Registration" name="service"> 
+                @else
+                    <input type="hidden" value="Khairat Kematian Fee" name="service">
+                @endif
+
+                <!-- Flex row for input and label side by side -->
+                <div class="mb-4 flex items-center justify-center gap-4 ml-8">
+                    <label for="no_kad_pengenalan" class="font-semibold text-left w-40">No. Kad Pengenalan</label>
+                    <x-input id="no_kad_pengenalan" class="form-control w-96" type="text" name="noIC"
+                        placeholder="No. Kad Pengenalan" value="{{ $profile->noIC }}" required autofocus readonly />
                 </div>
 
-                <div class="md:flex mb-6">
-                    <div class="md:w-1/3">
-                        <label class="block text-gray-600 font-bold md:text-left mb-3 md:mb-0 pr-4" for="name">
-                            Name :
-                        </label>
-                    </div>
-                    <div class="md:w-2/3">
-                        <input
-                            class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"
-                            id="name" type="text" value="#" disabled>
-                            <input type="hidden" value="#" name="name">
-                    </div>
+                <div class="mb-4 flex items-center justify-center gap-4 ml-8">
+                    <label for="nama" class="font-semibold text-left w-40">Nama</label>
+                    <x-input id="nama" class="form-control w-96" type="text" name="name" placeholder="Nama"
+                        value="{{ $user->name }}" required readonly />
                 </div>
 
-                <div class="md:flex mb-6">
-                    <div class="md:w-1/3">
-                        <label class="block text-gray-600 font-bold md:text-left mb-3 md:mb-0 pr-4" for="phone">
-                            Phone No. :
-                        </label>
-                    </div>
-                    <div class="md:w-2/3">
-                        <input
-                            class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"
-                            id="phone" type="text" value="#" disabled>
-                            <input type="hidden" value="#" name="phone">
-                            <input type="hidden" value="#" name="email">
-                    </div>
+                <div class="mb-4 flex items-center justify-center gap-4 ml-8">
+                    <label for="no_telefon" class="font-semibold text-left w-40">No. Ahli</label>
+                    <x-input id="no_telefon" class="form-control w-96" type="text" name="kkID"
+                        placeholder="No. Telefon" value="{{ $kKematian->kkID }}" required readonly />
                 </div>
 
-                <div class="md:flex mb-6">
-                    <div class="md:w-1/3">
-                        <label class="block text-gray-600 font-bold md:text-left mb-3 md:mb-0 pr-4" for="total">
-                            Payment Total (MYR) :
-                        </label>
-                    </div>
-                    <div class="md:w-2/3">
-                        <input class="form-input block w-full focus:bg-white" id="total" type="number"
-                            step=".01"  min="1" name="total">
-                    </div>
+                <div class="mb-4 flex items-center justify-center gap-4 ml-8">
+                    <label for="tarikh_lahir" class="font-semibold text-left w-40">Kadar Bayaran (RM)</label>
+                    <x-input id="tarikh_lahir" class="form-control w-96" type="number" name="totalPayment"
+                        step=".01" min="1" value="{{ $kKematian->status != 'SUCCESSFUL' ? '210.00' : '50.00' }}" required readonly />
                 </div>
 
-                <div class="md:flex mb-6">
-                    <div class="md:w-1/3">
-                        <label class="block text-gray-600 font-bold md:text-left mb-3 md:mb-0 pr-4" for="remark">
-                            Remark :
-                        </label>
-                    </div>
-                    <div class="md:w-2/3">
-                        <textarea class="form-textarea block w-full focus:bg-white" id="remark" name="remark" rows="4"></textarea>
-                    </div>
-                </div>
-
-                <div class="md:flex mb-6">
-                    <div class="md:w-1/3">
-                        <label class="block text-gray-600 font-bold md:text-left mb-3 md:mb-0 pr-4" for="paymentOpt">
-                            Payment Type :
-                        </label>
-                    </div>
+                <h3 class="text-lg font-bold mt-4 text-left">KAEDAH BAYARAN</h3>
+                <div class="md:flex mb-6 ml-8">
                     <div class="md:w-3/3">
                         <div class="mt-2 flex">
                             <label class="inline-flex items-center">
@@ -110,30 +75,27 @@
                     </div>
                 </div>
 
-                <div id="upload" style="display:none;">
-                    <div class="md:flex mb-6" id="uploadFile">
-                        <div class="md:w-1/3"></div>
-                        <div class="md:w-2/3">
-                            <input
-                                class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
-                                id="file_input" type="file" name="receipt">
-                        </div>
+                <div id="upload" style="display: none;">
+                    <div class="w-64 ml-12">
+                        <input
+                            class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
+                            id="file_input" type="file" name="receipt">
                     </div>
                 </div>
 
-                <div class="md:flex md:items-center">
-                    <div class="md:w-1/3"></div>
-                    <div class="md:w-2/3">
-                        <x-button
-                            class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm h-10 px-5 py-2.5 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
-                            {{ __('CONFIRM') }}
-                        </x-button>
-                    </div>
+                <div class="flex justify-end gap-4 mt-5">
+                    <a href="#" class="bg-red-500 text-white px-4 py-2 rounded w-48 text-center no-underline">
+                        {{ __('TERMINATE ACCOUNT') }}
+                    </a>
+                    <x-button class="btn btn-primary w-48">
+                        {{ __('SUBMIT') }}
+                    </x-button>
                 </div>
             </form>
-
         </div>
 
-        <br />
+    </div>
+
+    <br />
     </div>
 </x-app-layout>

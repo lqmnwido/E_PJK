@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class kKematian extends Model
 {
-    protected $table = 'kKematian';
+    protected $table = 'khairat_kematian';
 
     protected $fillable = [
         'kkID',

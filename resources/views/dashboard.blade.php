@@ -17,10 +17,10 @@
             </div>
         @endif
         <div class="container-fluid d-flex justify-content-evenly" style="padding-top:20px;">
-
-            {{-- @if ($payment !== null || $application->status != 'Approved') --}}
+            {{-- {{dd($kKematian->status)}} --}}
+            @if ($kKematian !== null)
                 <a href="{{route('kKematian')}}"
-                    class="w-full max-w-sm h-96 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 space-y-4">
+                    class="w-full max-w-sm h-96 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 space-y-4 no-underline disabled-link">
                     <div class="flex flex-col items-center justify-center h-full">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
                             class="bi bi-file-earmark-plus-fill" viewBox="0 0 16 16">
@@ -32,9 +32,9 @@
                         </h5>
                     </div>
                 </a>
-            {{-- @else
-                <a href="{#"
-                    class="w-full max-w-sm h-96 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 space-y-4 ">
+            @else
+                <a href="{{route('kKematian')}}"
+                    class="w-full max-w-sm h-96 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 space-y-4 no-underline">
                     <div class="flex flex-col items-center justify-center h-full">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
                             class="bi bi-file-earmark-plus-fill" viewBox="0 0 16 16">
@@ -42,13 +42,13 @@
                                 d="M9.293 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V4.707A1 1 0 0 0 13.707 4L10 .293A1 1 0 0 0 9.293 0M9.5 3.5v-2l3 3h-2a1 1 0 0 1-1-1M8.5 7v1.5H10a.5.5 0 0 1 0 1H8.5V11a.5.5 0 0 1-1 0V9.5H6a.5.5 0 0 1 0-1h1.5V7a.5.5 0 0 1 1 0" />
                         </svg>
                         </br>
-                        <h5 class="mb-1 text-xl font-medium text-gray-900 dark:text-black text-center">Registration Fee
+                        <h5 class="mb-1 text-xl font-medium text-gray-900 dark:text-black text-center">Register Khairat Kematian
                         </h5>
                     </div>
                 </a>
-            @endif --}}
-            <a href="#"
-                class="w-full max-w-sm h-96 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 space-y-4 ">
+            @endif
+            <a href="{{route('payment')}}" 
+                class="w-full max-w-sm h-96 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 space-y-4 no-underline @if ($kKematian === null) disabled-link @endif">
 
                 <div class="flex flex-col items-center justify-center h-full">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24   " fill="currentColor"

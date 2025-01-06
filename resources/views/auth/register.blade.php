@@ -2,7 +2,9 @@
 <x-guest-layout>
     <x-authentication-card>
         <x-slot name="logo">
-            <img src="/images/logo3.png" alt="UMPSA" width="200px" class="mx-auto d-block">
+            <a href="{{ route('welcome') }}">
+                <img src="/images/logo3.png" alt="UMPSA" width="250px" class="mx-auto d-block" style="">
+            </a>
         </x-slot>
 
         <x-validation-errors class="mb-4" />
@@ -90,7 +92,7 @@
                     placeholder="Confirm Password" type="password" name="password_confirmation" required
                     autocomplete="new-password" />
 
-                <input type="hidden" name="role" value="citizen" />
+                <input type="hidden" name="role" value="Citizen" />
             </div>
 
             @if (Laravel\Jetstream\Jetstream::hasTermsAndPrivacyPolicyFeature())
@@ -135,6 +137,7 @@
                 </x-button>
             </div>
         </form>
+    </br>
     </x-authentication-card>
 
 </x-guest-layout>

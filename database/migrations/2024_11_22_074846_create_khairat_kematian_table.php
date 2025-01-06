@@ -11,14 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('jenazah', function (Blueprint $table) {
+        Schema::create('khairat_kematian', function (Blueprint $table) {
             $table->id();
-            $table->string('jenazahID');
+            $table->string('kkID');
             $table->string('userID');
-            $table->string('locationID');
-            $table->date('deathDate');
-            $table->string('permit');
-            $table->string('graveLot');
+            $table->string('pictureIC')->nullable();
             $table->string('status');
             $table->timestamps();
         });
@@ -29,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('jenazah');
+        Schema::dropIfExists('khairat_kematian');
     }
 };

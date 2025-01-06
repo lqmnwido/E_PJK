@@ -5,3 +5,9 @@
 [x-cloak] {
     display: none;
 }
+
+.disabled-link {
+    pointer-events: none;
+    opacity: 0.5; /* Make it look disabled */
+    text-decoration: none;
+}

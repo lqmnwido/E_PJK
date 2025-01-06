@@ -11,12 +11,12 @@ class CreateProfileTable extends Migration
         Schema::create('profile', function (Blueprint $table) {
             $table->id();
             $table->string('profileID');
-            $table->string('userID');
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->string('noIC');
             $table->date('DOB');
             $table->string('nationality');
             $table->string('race');
-            $table->string('gender');
+            $table->enum('gender', ['male', 'female']);
             $table->string('phone')->nullable();
             $table->string('address');
             $table->string('heir')->nullable();
@@ -28,4 +28,5 @@ class CreateProfileTable extends Migration
     {
         Schema::dropIfExists('profile');
     }
+    
 }
