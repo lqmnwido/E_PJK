@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\JenazahController;
+use App\Http\Controllers\LocationController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -48,6 +50,13 @@ Route::post('toyyibpay-callback','App\Http\Controllers\PaymentController@callBac
 Route::resource('jenazahs',App\Http\Controllers\JenazahController::class);
 Route::get('/jenazah', 'App\Http\Controllers\JenazahController@index') -> name(name: 'jenazah');
 Route::post('/jenazah/store', 'App\Http\Controllers\JenazahController@store') -> name('store_jenazah');
+Route::post('/assign-jenazah', [JenazahController::class, 'updateAssign'])->name('assign.jenazah');
+
 
 //Profile
 Route::post('/user/save', 'App\Http\Controllers\ProfileController@save')-> name('profile_update');
+
+//Location 
+Route::post('/location','App\Http\Controllers\LocationController@index') -> name('location');
+Route::post('/location/submit',[LocationController::class, 'store']) -> name('location-submit');
+Route::post('/search',[LocationController::class, 'search']) -> name('location-search');

@@ -10,10 +10,8 @@ class Location extends Model
 
     protected $fillable = [
         'locationID',
-        'country',
-        'state',
-        'city',
-        'address',
-        'poscode',
+        'latitude',
+        'longitude',
+        'cemetery',
     ];
 }

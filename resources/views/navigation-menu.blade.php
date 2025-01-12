@@ -1,4 +1,3 @@
-
 <nav x-data="{ open: false }" class="bg-white border-b border-gray-100">
     @if (!auth()->check())
         <script>
@@ -12,7 +11,8 @@
                     <!-- Logo -->
                     <div class="shrink-0 flex items-center">
                         <a href="{{ route('dashboard') }}">
-                        <img src="/images/logo3.png" alt="logo" height="60px" width="100px" class="d-inline-block">
+                            <img src="/images/logo3.png" alt="logo" height="60px" width="100px"
+                                class="d-inline-block">
                         </a>
                     </div>
                     <!-- Navigation Links -->
@@ -21,7 +21,7 @@
                             <x-nav-link href="{{ route('dashboard') }}" class="no-underline" :active="request()->routeIs('user_list')">
                                 {{ __('Manage User') }}
                             </x-nav-link>
-                            <x-nav-link href="#" class="no-underline" :active="request()->routeIs('dashboard')">
+                            <x-nav-link href="{{ route('jenazah') }}" class="no-underline" :active="request()->routeIs('dashboard')">
                                 {{ __('Manage Jenazah') }}
                             </x-nav-link>
                             <x-nav-link href="{{ route('kKematian') }}" class="no-underline" :active="request()->routeIs('kKematian')">
@@ -41,7 +41,9 @@
                                 {{ __('Payment History') }}
                             </x-nav-link>
                         @else
-                            {{-- Optionally handle unauthenticated users --}}
+                            <x-nav-link href="{{ route('jenazah') }}" class="no-underline" :active="request()->routeIs('jenazah')">
+                                {{ __('Manage Jenazah') }}
+                            </x-nav-link>
                         @endif
                     </div>
                 </div>

@@ -25,7 +25,7 @@
                     <div class="mb-4 flex items-center justify-center gap-4 ml-8">
                         <label for="nama" class="font-semibold text-left w-40">Nama *</label>
                         <x-input id="nama" class="form-control w-96" type="text" name="jenName"
-                            placeholder="Nama" value="" required  />
+                            placeholder="Nama" value="" required />
                     </div>
 
                     <div class="mb-4 flex items-center justify-left gap-4 ml-8">
@@ -95,7 +95,9 @@
                     <div class="mb-4 flex items-center justify-center gap-4 ml-8">
                         <label for="nama" class="font-semibold text-left w-40">Nama *</label>
                         <x-input id="nama" class="form-control w-96" type="text" name="name"
-                            placeholder="Nama" value="{{ $user->name }}" required  />
+                            placeholder="Nama" value="{{ $user->name }}" required />
+
+                            <input type="hidden" name="email" value="{{ $user->email }}">
                     </div>
 
                     <div class="mb-4 flex items-center justify-center gap-4 ml-8">
@@ -126,35 +128,104 @@
                 <div class="step-three" data-step="3" style="display: none;">
                     <h3 class="text-lg font-bold mb-4 text-left">C. MAKLUMAT PERKHIDMATAN</h3>
 
-
                     <h5 class="text-sm font-bold mb-4 text-center ml-24">HARGA (RM)</h5>
+
                     <!-- Flex row for input and label side by side -->
                     <div class="mb-4 flex items-center justify-center gap-4 ml-12">
-                        <label class=" text-left w-40">Jurumandi</label>
-                        <label class=" text-left w-40">250.00</label>
-                        <input class="form-check-input" type="checkbox" value="Jurumandi"
-                            id="flexCheckDefault" name="services">
+                        <label class="text-left w-40">Jurumandi</label>
+                        <label class="text-left w-40">250.00</label>
+                        <input class="form-check-input service-checkbox" type="checkbox" value="Jurumandi"
+                            data-service="Jurumandi" data-price="250.00" name="services[]">
                     </div>
 
                     <div class="mb-4 flex items-center justify-center gap-4 ml-12">
-                        <label class=" text-left w-40">Imam & Talkin</label>
-                        <label class=" text-left w-40">100.00</label>
-                        <input class="form-check-input" type="checkbox" value="Imam & Talkin"
-                            id="flexCheckDefault" name="services">
+                        <label class="text-left w-40">Imam & Talkin</label>
+                        <label class="text-left w-40">100.00</label>
+                        <input class="form-check-input service-checkbox" type="checkbox" value="Imam & Talkin"
+                            data-service="Imam & Talkin" data-price="100.00" name="services[]">
                     </div>
 
                     <div class="mb-4 flex items-center justify-center gap-4 ml-12">
-                        <label class=" text-left w-40">Set Kain Kafan</label>
-                        <label class=" text-left w-40">250.00</label>
-                        <input class="form-check-input" type="checkbox" value="JSet Kain Kafan"
-                            id="flexCheckDefault" name="services">
+                        <label class="text-left w-40">Set Kain Kafan</label>
+                        <label class="text-left w-40">250.00</label>
+                        <input class="form-check-input service-checkbox" type="checkbox" value="Set Kain Kafan"
+                            data-service="Set Kain Kafan" data-price="250.00" name="services[]">
                     </div>
 
                     <div class="mb-4 flex items-center justify-center gap-4 ml-12">
-                        <label class=" text-left w-40">Sewaan Van</label>
-                        <label class=" text-left w-40">300.00</label>
-                        <input class="form-check-input" type="checkbox" value="Sewaan Van"
-                            id="flexCheckDefault" name="services">
+                        <label class="text-left w-40">Sewaan Van</label>
+                        <label class="text-left w-40">300.00</label>
+                        <input class="form-check-input service-checkbox" type="checkbox" value="Sewaan Van"
+                            data-service="Sewaan Van" data-price="300.00" name="services[]">
+                    </div>
+                </div>
+
+                <div class="step-four" data-step="4" style="display: none;">
+                    <h3 class="text-lg font-bold mb-4 text-left">D. BAYARAN</h3>
+
+                    <table class="table table-bordered table-sm">
+                        <thead>
+                            <tr>
+                                <th scope="col" class="text-center">#</th>
+                                <th scope="col" class="text-center">Services</th>
+                                <th scope="col" class="text-center">Harga (RM)</th>
+                            </tr>
+                        </thead>
+                        <tbody id="servicesTableBody">
+                            <!-- Dynamic rows will be inserted here -->
+                        </tbody>
+                    </table>
+
+                    <!-- Align Total Price -->
+                    <div class="mt-4 flex items-center justify-end gap-4 ml-12" >
+                        <label class="text-left w-40 font-bold">Jumlah Harga (RM):</label>
+                        <input class="text-center form-control" style="width: 100px; margin-left:5px;" type="text"
+                            id="totalPrice" name="totalPrice" value="0.00" readonly>
+                    </div>
+
+                    <h3 class="text-lg font-bold mt-4 text-left">KAEDAH BAYARAN</h3>
+                    <div class="md:flex mb-6 ml-8">
+                        <div class="md:w-3/3">
+                            <div class="mt-2 flex">
+                                <label class="inline-flex items-center">
+                                    <input type="radio" class="form-radio text-indigo-600" name="paymentOpt" required
+                                        id="Khairat Kematian" value="Khairat Kematian">
+                                        <label class="text-left w-40 font-bold">Khairat Kematian</label>
+                                </label>
+                            </div>
+                            <div class="mt-2 flex">
+                                <label class="inline-flex items-center">
+                                    <input type="radio" class="form-radio text-indigo-600" name="paymentOpt" required
+                                        id="FPX" value="FPX">
+                                    <img src="/images/FPX.png" alt="UMPSA" height="60px" width="100px"
+                                        class="d-inline-block mx-2">
+                                </label>
+                            </div>
+                            </br>
+                            <div class="mt-2">
+                                <label class="inline-flex items-center">
+                                    <input type="radio" class="form-radio text-indigo-600" name="paymentOpt"
+                                        id="CDM" value="CDM">
+                                    <label class="block text-gray-600 font-bold md:text-right mx-1">
+                                        Cash Deposit Machine (CDM)
+                                    </label>
+                                </label>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="100px" height="60px"
+                                    fill="currentColor" class="bi bi-cash-stack ml-14" viewBox="0 0 16 16">
+                                    <path d="M1 3a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1zm7 8a2 2 0 1 0 0-4 2 2 0 0 0 0 4" />
+                                    <path
+                                        d="M0 5a1 1 0 0 1 1-1h14a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H1a1 1 0 0 1-1-1zm3 0a2 2 0 0 1-2 2v4a2 2 0 0 1 2 2h10a2 2 0 0 1 2-2V7a2 2 0 0 1-2-2z" />
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="upload" style="display: none;">
+                        <div class="w-64 ml-12">
+                            <input
+                                class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
+                                id="file_input" type="file" name="receipt">
+                        </div>
                     </div>
                 </div>
 
@@ -181,12 +252,13 @@
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             let currentStep = 1;
-            const totalSteps = 3;
+            const totalSteps = 4;
 
             // Get the step elements and buttons
             const stepOne = document.querySelector('.step-one');
             const stepTwo = document.querySelector('.step-two');
             const stepThree = document.querySelector('.step-three');
+            const stepFour = document.querySelector('.step-four');
             const nextBtn = document.getElementById('nextBtn');
             const backBtn = document.getElementById('backBtn');
             const submitBtn = document.getElementById('submitBtn');
@@ -194,7 +266,7 @@
             // Function to show the step
             function showStep(step) {
                 // Hide all steps
-                document.querySelectorAll('.step-one, .step-two, .step-three').forEach(stepDiv => {
+                document.querySelectorAll('.step-one, .step-two, .step-three, .step-four').forEach(stepDiv => {
                     stepDiv.style.display = 'none';
                 });
 
@@ -205,6 +277,8 @@
                     stepTwo.style.display = 'block';
                 } else if (step === 3) {
                     stepThree.style.display = 'block';
+                } else if (step === 4) {
+                    stepFour.style.display = 'block';
                 }
 
                 // Show/hide navigation buttons
@@ -262,7 +336,66 @@
             // Initialize the first step
             showStep(currentStep);
         });
+
+        document.addEventListener("DOMContentLoaded", function() {
+            const checkboxes = document.querySelectorAll(".service-checkbox");
+            const tableBody = document.getElementById("servicesTableBody");
+            const totalPriceInput = document.getElementById("totalPrice");
+
+            let totalPrice = 0;
+
+            // Function to update the table
+            function updateTable() {
+                // Clear table
+                tableBody.innerHTML = "";
+
+                // Track row number
+                let rowNumber = 1;
+
+                // Loop through checkboxes
+                checkboxes.forEach((checkbox) => {
+                    if (checkbox.checked) {
+                        const serviceName = checkbox.dataset.service;
+                        const servicePrice = parseFloat(checkbox.dataset.price);
+
+                        // Add row to the table
+                        const row = `
+                    <tr>
+                        <th scope="row" class="text-center">${rowNumber}</th>
+                        <td class="text-center">${serviceName}</td>
+                        <td class="text-center">${servicePrice.toFixed(2)}</td>
+                    </tr>
+                `;
+                        tableBody.insertAdjacentHTML("beforeend", row);
+
+                        rowNumber++;
+                    }
+                });
+            }
+
+            // Function to calculate total price
+            function calculateTotal() {
+                totalPrice = 0;
+
+                checkboxes.forEach((checkbox) => {
+                    if (checkbox.checked) {
+                        totalPrice += parseFloat(checkbox.dataset.price);
+                    }
+                });
+
+                totalPriceInput.value = totalPrice.toFixed(2);
+            }
+
+            // Add event listeners to checkboxes
+            checkboxes.forEach((checkbox) => {
+                checkbox.addEventListener("change", function() {
+                    updateTable();
+                    calculateTotal();
+                });
+            });
+        });
     </script>
+
 
 
 </x-app-layout>

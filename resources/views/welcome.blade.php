@@ -903,7 +903,7 @@
 
                 <!-- UMP LOGO -->
                 <div class="d-inline-block " style="padding-left:2%; margin-top:-10px;  float:left" id="Logo">
-                    <img src="/images/logo3.png" alt="UMPSA" height="300px" width="100px" class="d-inline-block">
+                    <a href="{{ url('/') }}"> <img src="/images/logo3.png" alt="UMPSA" height="300px" width="100px" class="d-inline-block"></a>
                 </div>
                 <!-- END LOGO -->
 
@@ -947,25 +947,65 @@
 
                     <div class="form-box">
 
-                    </br>
-                        <form action="#" method="POST">
-                            <div class="mb-3 flex items-center space-x-4">
-                                <label for="ic" class="w-32 text-right text-sm whitespace-normal">IC NUMBER:</label>
-                                <input type="text" id="ic" class="form-control flex-1 p-2 border border-gray-300 rounded text-sm" placeholder="Enter IC number" required>
-                            </div>
-                            <div class="mb-3 flex items-center space-x-4">
-                                <label for="jenazah" class="w-32 text-right text-sm whitespace-normal">JENAZAH NAME:</label>
-                                <input type="text" id="jenazah" class="form-control flex-1 p-2 border border-gray-300 rounded text-sm" placeholder="Enter Jenazah name" required>
-                            </div>
-                            <div class="mb-3 flex items-center space-x-4">
-                                <label for="cemetery" class="w-32 text-right text-sm whitespace-normal">CEMETERY NAME:</label>
-                                <input type="text" id="cemetery" class="form-control flex-1 p-2 border border-gray-300 rounded text-sm" placeholder="Enter Cemetery name" required>
-                            </div>
-                            <div class="mb-3 flex items-center space-x-4">
-                                <label for="tombID" class="w-32 text-right text-sm whitespace-normal">TOMB ID:</label>
-                                <input type="text" id="tombID" class="form-control flex-1 p-2 border border-gray-300 rounded text-sm" placeholder="Enter Tomb ID" required>
-                            </div>
                         </br>
+                        <form action="{{ route('location-search') }}" method="POST">
+                            @csrf
+                            <div class="mb-3 flex items-center space-x-4">
+                                <label for="ic" class="w-32 text-right text-sm whitespace-normal">JENAZAH IC
+                                    NUMBER:</label>
+                                <input type="text" id="ic" name="ic"
+                                    class="form-control flex-1 p-2 border border-gray-300 rounded text-sm"
+                                    placeholder="Enter IC number" @if(isset($jenazah) && $jenazah) value="{{ $jenazah->jenazahIC }}" @endif required>
+
+                                @if (isset($jenazah) && $jenazah)
+                                    @php
+                                        // Find the locationID in the jenazah collection
+                                        $location = $locations->where('locationID', $jenazah->locationID)->first();
+                                        // Initialize the location_id variable
+                                        $location_id = null;
+                                    @endphp
+                                @else
+                                @endif
+                                @if (isset($location) && $location)
+                                    <input type="hidden" class="form-control w-96" name="lat" id="lat"
+                                        value="{{ $location->latitude }}" />
+                                    <input type="hidden" class="form-control w-96" name="lng" id="lng"
+                                        value="{{ $location->longitude }}" />
+                                @else
+                                    <input type="hidden" class="form-control w-96" id="lat"
+                                        value="3.90591429604234" />
+                                    <input type="hidden" class="form-control w-96" id="lng"
+                                        value="103.35853618383408" />
+                                @endif
+
+                            </div>
+                            <div class="mb-3 flex items-center space-x-4">
+                                <label for="jenazah" class="w-32 text-right text-sm whitespace-normal">JENAZAH
+                                    NAME:</label>
+                                <input type="text" id="jenazah"
+                                    class="form-control flex-1 p-2 border border-gray-300 rounded text-sm"
+                                    placeholder="Jenazah name"
+                                    @if (isset($jenazah) && $jenazah) value="{{ $jenazah->jenazahName }}" @endif
+                                    readonly>
+                            </div>
+                            <div class="mb-3 flex items-center space-x-4">
+                                <label for="cemetery" class="w-32 text-right text-sm whitespace-normal">CEMETERY
+                                    NAME:</label>
+                                <input type="text" id="cemetery"
+                                    class="form-control flex-1 p-2 border border-gray-300 rounded text-sm"
+                                    placeholder="Cemetery name"
+                                    @if (isset($location) && $location) value="{{ $location->cemetery }}" @endif
+                                    readonly>
+                            </div>
+                            <div class="mb-3 flex items-center space-x-4">
+                                <label for="tombID" class="w-32 text-right text-sm whitespace-normal">TOMB
+                                    ID:</label>
+                                <input type="text" id="tombID"
+                                    class="form-control flex-1 p-2 border border-gray-300 rounded text-sm"
+                                    placeholder="Tomb ID"
+                                    @if (isset($jenazah) && $jenazah) value="{{ $jenazah->graveLot }} @endif" readonly>
+                            </div>
+                            </br>
                             <button class="btn btn-primary w-100">Search</button>
                         </form>
                     </div>
@@ -978,8 +1018,8 @@
 
         <footer>
             <div class="w-full mx-auto max-w-screen-xl p-4 md:flex md:items-center md:justify-between">
-                <span class="text-sm text-gray-500 sm:text-center dark:text-gray-400">© 2024 <a
-                        href="#" class="hover:underline">UMPSA™</a>. All Rights Reserved.
+                <span class="text-sm text-gray-500 sm:text-center dark:text-gray-400">© 2024 <a href="#"
+                        class="hover:underline">UMPSA™</a>. All Rights Reserved.
                 </span>
                 <ul
                     class="flex flex-wrap items-center mt-3 text-sm font-medium text-gray-500 dark:text-gray-400 sm:mt-0">
@@ -1009,10 +1049,16 @@
 
         <script>
             function initMap() {
+                var latInput = document.getElementById('lat');
+                var lat = parseFloat(latInput.value)
+                var lngInput = document.getElementById('lng');
+                var lng = parseFloat(lngInput.value)
+                console.log(lat);
+                console.log(lng);
                 // Coordinates for Kuantan Cemetery
                 var kuantanCemetery = {
-                    lat: 3.9059865474700928,
-                    lng: 103.35852813720703
+                    lat: lat,
+                    lng: lng
                 };
 
                 // Create the map, centered at Kuantan Cemetery

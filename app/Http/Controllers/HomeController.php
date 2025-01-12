@@ -24,7 +24,7 @@ class HomeController extends Controller
         {
             return view('dashboard', compact('uid', 'role', 'kKematian'));
         }else{
-            return redirect()->route('user_list');
+            return redirect()->route('jenazah');
         }
            
     }

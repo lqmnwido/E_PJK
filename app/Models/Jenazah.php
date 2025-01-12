@@ -20,8 +20,10 @@ class Jenazah extends Model
         'jenazahWarga',
         'locationID',
         'deathDate',
+        'services',
         'permit',
         'graveLot',
         'status',
+        'assign',
     ];
 }

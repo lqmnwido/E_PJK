@@ -51,7 +51,7 @@ class PaymentController extends Controller
     {
         $userID = $request['uid'];
         $pay = Payment::where('userID', $userID)->first();
-        if($pay->status=='PENDING'){
+        if($pay && $pay->status=='PENDING'){
             $pay->delete();
         }
         
