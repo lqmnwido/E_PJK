@@ -186,6 +186,7 @@
                     <h3 class="text-lg font-bold mt-4 text-left">KAEDAH BAYARAN</h3>
                     <div class="md:flex mb-6 ml-8">
                         <div class="md:w-3/3">
+                            @if(isset($kKematian) || $kKematian != null)
                             <div class="mt-2 flex">
                                 <label class="inline-flex items-center">
                                     <input type="radio" class="form-radio text-indigo-600" name="paymentOpt" required
@@ -193,6 +194,7 @@
                                         <label class="text-left w-40 font-bold">Khairat Kematian</label>
                                 </label>
                             </div>
+                            @endif
                             <div class="mt-2 flex">
                                 <label class="inline-flex items-center">
                                     <input type="radio" class="form-radio text-indigo-600" name="paymentOpt" required

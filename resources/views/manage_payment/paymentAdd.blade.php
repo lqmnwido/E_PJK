@@ -17,7 +17,7 @@
                     <input type="hidden" value="{{ $user->userID }}" name="uid">
                     <input type="hidden" value="{{ $profile->phone }}" name="phone">
                     <input type="hidden" value="{{ $user->email }}" name="email">
-                    @if ($kKematian === null):
+                    @if ($kKematian === null || $kKematian->status == 'PENDING'):
                         <input type="hidden" value="Khairat Kematian Registration" name="service">
                     @else
                         <input type="hidden" value="Khairat Kematian Fee" name="service">

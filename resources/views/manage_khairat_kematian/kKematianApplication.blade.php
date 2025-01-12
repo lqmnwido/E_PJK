@@ -55,7 +55,7 @@
 
                 <div class="mb-4 flex items-center justify-center gap-4 ml-8">
                     <label for="gambar_ic" class="font-semibold text-left w-40">Gambar IC*</label>
-                    <input id="gambar_ic" class="form-control w-96" type="file" name="icPic" accept="image/*" />
+                    <input id="gambar_ic" class="form-control w-96" type="file" name="icPic" accept="image/*" required/>
                 </div>
 
                 <h3 class="text-lg font-bold mt-4 text-left">YURAN AHLI</h3>

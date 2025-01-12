@@ -20,8 +20,8 @@
             class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Add
             User</a> --}}
 
-            <div class="overflow-hidden rounded-lg border border-gray-200 shadow-md m-5">
-                <table class="w-full border-collapse bg-white text-left text-sm text-gray-500">
+            <div class="overflow-hidden rounded-lg border border-gray-200 shadow-md table-responsive-xxl">
+                <table class="w-100 border-collapse bg-white text-left text-sm text-gray-500">
                     <thead class="bg-gray-50">
                         <tr>
                             <th class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">No.</th>
@@ -51,10 +51,10 @@
                                 <td class="px-6 py-2 whitespace-nowrap overflow-hidden text-ellipsis">
                                     {{ $no++ }}
                                 </td>
-                                <th class="flex gap-3 px-6 py-4 whitespace-nowrap overflow-hidden text-ellipsis">
+                                <th class="flex gap-3 px-6 py-4 overflow-hidden text-ellipsis" style="max-width: 200px;">
                                     <div class="text-sm">
                                         <div class="font-medium text-gray-700">{{ $user->name }}</div>
-                                        <div class="text-gray-400">{{ $payment->services }}</div>
+                                        <div class="text-gray-400 break-words">{{ $payment->services }}</div>
                                     </div>
                                 </th>
                                 <td class="px-6 py-4 whitespace-nowrap overflow-hidden text-ellipsis">

@@ -54,8 +54,6 @@ class PaymentController extends Controller
         if($pay && $pay->status=='PENDING'){
             $pay->delete();
         }
-        
-
 
         $month = date('m');
         $date = date("Y-m-d");

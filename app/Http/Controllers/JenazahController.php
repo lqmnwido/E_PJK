@@ -102,6 +102,17 @@ class JenazahController extends Controller
             $path = 'receipt/' . $receiptID . '.' . $receiptName;
 
             Storage::disk('public')->put($path, file_get_contents($receipt));
+        }elseif ($request['paymentOpt'] == 'Khairat Kematian') {
+            $receipts = null;
+            Payment::create([
+                'paymentID' => $paymentID,
+                'userID' => $request['uid'],
+                'services' => json_encode($request->services),
+                'amount' => $totalPrice,
+                'typeOfPayment' => $request['paymentOpt'],
+                'status' => 'PENDING',
+                'receipt' => $receipts,
+            ]);
         } else {
 
             $billName = 'Bayaran Pengurusan Jenazah';
