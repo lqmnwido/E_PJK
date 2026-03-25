@@ -76,7 +76,7 @@
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script type="module" src="https://unpkg.com/@googlemaps/extended-component-library@0.6"></script>
     <script
-        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCeSUIzJDIEuQqvUcmQapj1_k7BxCzYkAw&libraries=places&callback=initMap"
+        src="https://maps.googleapis.com/maps/api/js?key={api}&libraries=places&callback=initMap"
         async defer></script>
     <script>
         function initMap() {
