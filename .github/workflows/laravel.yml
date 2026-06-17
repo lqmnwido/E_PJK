@@ -17,7 +17,7 @@ jobs:
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: '8.2'
+          php-version: '8.4'
           extensions: mbstring, xml, ctype, iconv, intl, pdo, pdo_mysql, dom, filter, gd, iconv, json, mbstring, openssl, pcre, pdo, pdo_mysql, pdo_sqlite, phar, posix, session, simplexml, tokenizer, xml, xmlreader, xmlwriter, zip, zlib
           coverage: xdebug
           tools: composer:v2
