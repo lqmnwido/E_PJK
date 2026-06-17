@@ -27,10 +27,12 @@ class UserFactory extends Factory
     public function definition(): array
     {
         return [
+            'userID' => fake()->unique()->numerify('USR#####'),
             'name' => fake()->name(),
             'email' => fake()->unique()->safeEmail(),
+            'role' => 'user',
             'email_verified_at' => now(),
-            'password' => static::$password ??= Hash::make('password'),
+            'password' => 'password',
             'two_factor_secret' => null,
             'two_factor_recovery_codes' => null,
             'remember_token' => Str::random(10),
@@ -47,6 +49,25 @@ class UserFactory extends Factory
         return $this->state(fn (array $attributes) => [
             'email_verified_at' => null,
         ]);
+    }
+
+    /**
+     * Configure the model factory.
+     */
+    public function configure(): static
+    {
+        return $this->afterCreating(function (User $user) {
+            $user->profile()->create([
+                'profileID' => 'P' . fake()->unique()->numerify('####'),
+                'noIC' => fake()->unique()->numerify('######-##-####'),
+                'DOB' => fake()->date(),
+                'nationality' => 'Malaysian',
+                'race' => 'Malay',
+                'gender' => fake()->randomElement(['male', 'female']),
+                'phone' => fake()->phoneNumber(),
+                'address' => fake()->address(),
+            ]);
+        });
     }
 
     /**

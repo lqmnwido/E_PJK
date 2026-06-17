@@ -20,12 +20,17 @@ class CreateNewUser implements CreatesNewUsers
      */
     public function create(array $input): User
     {
-        // Validate User Data
         Validator::make($input, [
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'role' => ['required', 'string', 'max:255'],
             'password' => $this->passwordRules(),
+            'noIC' => ['required', 'string', 'max:255'],
+            'DOB' => ['required', 'date'],
+            'nationality' => ['required', 'string', 'max:255'],
+            'race' => ['required', 'string', 'max:255'],
+            'gender' => ['required', 'string', 'in:male,female'],
+            'address' => ['required', 'string', 'max:255'],
             'terms' => Jetstream::hasTermsAndPrivacyPolicyFeature() ? ['accepted', 'required'] : '',
         ])->validate();
 
@@ -40,21 +45,12 @@ class CreateNewUser implements CreatesNewUsers
             'password' => Hash::make($input['password']),
         ]);
 
-        // Validate Profile Data
-        Validator::make($input, [
-            'noIC' => ['required', 'string', 'max:255'],
-            'DOB' => ['required', 'date'],
-            'nationality' => ['required', 'string', 'max:255'],
-            'race' => ['required', 'string', 'max:255'],
-            'address' => ['required', 'string', 'max:255'],
-        ])->validate();
-
         $profileID = 'P' . rand(1111, 9999);
 
         // Create Profile
         Profile::create([
             'profileID' => $profileID,
-            'userID' => $userID,
+            'user_id' => $user->id,
             'noIC' => $input['noIC'],
             'DOB' => $input['DOB'],
             'nationality' => $input['nationality'],
@@ -63,7 +59,6 @@ class CreateNewUser implements CreatesNewUsers
             'address' => $input['address'],
         ]);
 
-        // Return only the User instance
         return $user;
     }
 }
