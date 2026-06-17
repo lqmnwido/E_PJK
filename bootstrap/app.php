@@ -12,7 +12,7 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware) {
-        if (app()->environment('testing')) {
+        if (($_ENV['APP_ENV'] ?? $_SERVER['APP_ENV'] ?? null) === 'testing') {
             $middleware->validateCsrfTokens(except: ['*']);
         }
     })
