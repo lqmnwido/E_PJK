@@ -11,9 +11,9 @@
   <a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
 </p>
 
-# E_PJK — Laravel Application
+# E_PJK - Laravel Application
 
-A modern Laravel 11 application with **Livewire 3**, **Laravel Jetstream**, and **Tailwind CSS v4**.
+A Laravel 13 application with **Livewire 4**, **Laravel Jetstream**, **Sanctum**, **Tailwind CSS v4**, and Vite.
 
 ---
 
@@ -21,12 +21,12 @@ A modern Laravel 11 application with **Livewire 3**, **Laravel Jetstream**, and 
 
 | Layer | Technology |
 |-------|------------|
-| **PHP** | 8.2+ (tested on 8.4) |
-| **Framework** | Laravel 11.x |
-| **Frontend** | Livewire 3, Alpine.js, Tailwind CSS v4 |
+| **PHP** | 8.4+ |
+| **Framework** | Laravel 13.x |
+| **Frontend** | Livewire 4, Alpine.js, Tailwind CSS v4, Bootstrap 5 |
 | **Auth & Profiles** | Laravel Jetstream (Livewire stack), Fortify, Sanctum |
-| **Build Tool** | Vite 6+ |
-| **Testing** | Pest / PHPUnit |
+| **Build Tool** | Vite 8 |
+| **Testing** | PHPUnit 13, ParaTest 7 |
 | **Code Style** | Laravel Pint |
 | **Database** | MySQL / PostgreSQL / SQLite (configurable) |
 
@@ -34,21 +34,20 @@ A modern Laravel 11 application with **Livewire 3**, **Laravel Jetstream**, and 
 
 ## Features
 
-- **User authentication** — Registration, login, email verification, password reset
-- **Profile management** — Update profile information, profile photos, password
-- **Two-factor authentication** — TOTP via Laravel Fortify
-- **API tokens** — Laravel Sanctum for SPA / mobile auth
-- **Team support** — Jetstream teams (optional)
-- **Modern UI** — Tailwind CSS v4 + Vite, zero-config PostCSS
-- **Real-time** — Laravel Echo / Pusher ready
-- **Background jobs** — Queue workers with database/Redis
-- **Scheduled tasks** — Laravel Scheduler
+- **User authentication** - Registration, login, email verification, password reset
+- **Profile management** - Update profile information, profile photos, password
+- **Two-factor authentication** - TOTP via Laravel Fortify
+- **API tokens** - Laravel Sanctum for SPA / mobile auth
+- **Team support** - Jetstream teams (optional)
+- **Modern UI** - Tailwind CSS v4, Bootstrap 5, and Vite
+- **Background jobs** - Queue workers with database/Redis
+- **Scheduled tasks** - Laravel Scheduler
 
 ---
 
 ## Requirements
 
-- PHP >= 8.2
+- PHP >= 8.4
 - Composer >= 2.0
 - Node.js >= 20 / npm >= 10
 - Database: MySQL 8+, PostgreSQL 14+, or SQLite
@@ -122,12 +121,13 @@ MAIL_MAILER=log
 
 ```bash
 # Run all tests
-./vendor/bin/pest
-# or
 php artisan test
 
-# With coverage
-./vendor/bin/pest --coverage
+# Run tests in parallel, matching CI
+php artisan test --parallel
+
+# Run PHPUnit directly
+vendor/bin/phpunit
 ```
 
 ---
@@ -199,11 +199,11 @@ php artisan optimize:clear
 # Rebuild autoload
 composer dump-autoload -o
 
-# Run Pint
-./vendor/bin/pint
+# Build frontend assets
+npm run build
 
-# Generate IDE helpers
-composer run ide-helper
+# Run Pint
+vendor/bin/pint
 
 # Run migrations fresh + seed
 php artisan migrate:fresh --seed
