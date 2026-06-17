@@ -15,12 +15,13 @@ class Profile extends Model
 
     protected $fillable = [
         'profileID',
-        'userID',
+        'user_id',
         'noIC',
         'DOB',
         'nationality',
         'race',
         'gender',
+        'phone',
         'address',
         'heir',
     ];

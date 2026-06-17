@@ -38,7 +38,7 @@ class UpdateUserProfileInformation implements UpdatesUserProfileInformation
 
         // Update profile data
         Profile::updateOrCreate(
-            ['userID' => $user->id],
+            ['user_id' => $user->id],
             [
                 'DOB' => $input['DOB'],
                 'nationality' => $input['nationality'],
